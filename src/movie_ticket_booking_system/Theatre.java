@@ -2,9 +2,11 @@ package movie_ticket_booking_system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Theatre {
-    static int cnt=1;
+    private static AtomicInteger cnt = new AtomicInteger(0);
+
     private final String theatreName;
     private final String location;
     private List<Show>shows;
@@ -17,7 +19,7 @@ public class Theatre {
         this.location = location;
         this.shows = new ArrayList<>();
         this.capacity=capacity;
-        this.theatreId = cnt++;
+        this.theatreId = cnt.incrementAndGet();
     }
 
     public String getTheatreName() {
