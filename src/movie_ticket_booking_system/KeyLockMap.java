@@ -17,7 +17,7 @@ public class KeyLockMap<K, V> {
         }
 
         // Read operation with fine-grained locking
-        public V get(K key) {
+        public V get(K key) throws Exception{
             ReentrantLock lock = getLock(key);
             //if the lock is acquired by some other thread , the current thread doesn't wait
             if (lock.tryLock()) { // Try to acquire the lock
@@ -27,14 +27,14 @@ public class KeyLockMap<K, V> {
                     lock.unlock(); // Release lock
                 }
             } else {
-                System.out.println("Wait for some time" );
 
-                return null; // Return null or handle as needed
+
+               throw new Exception("Wait for some time"); // Return null or handle as needed
             }
         }
 
         // Write operation with fine-grained locking
-        public boolean put(K key, V value) {
+        public boolean put(K key, V value) throws Exception{
             ReentrantLock lock = getLock(key);
             //if the lock is acquired by some other thread , the current thread doesn't wait
             if (lock.tryLock()) { // Try to acquire the lock
@@ -45,8 +45,8 @@ public class KeyLockMap<K, V> {
                     lock.unlock(); // Release lock
                 }
             } else {
-                System.out.println("Wait for some time unable to proceed ");
-                return false; // Indicate failure
+                throw new Exception("Wait for some time"); // Return null or handle as needed
+
             }
         }
 }

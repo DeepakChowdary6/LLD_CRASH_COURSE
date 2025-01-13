@@ -49,6 +49,7 @@ public class BookMyShow {
 
         User user1=new User("Seshu");
         User user2=new User("Vinod");
+        User user3=new User("Kishore");
 
         Theatre theatre1=new Theatre("sandya","Hyderabad",50);
         Theatre theatre2=new Theatre("prasads","Hyderabad",70);
@@ -95,8 +96,16 @@ public class BookMyShow {
                 System.out.println(e.getMessage());
             }
         });
+        Thread thread3=new Thread(()->{
+            try {
+                Ticket ticket2=booking.bookTickets(show1,List.of(3,5),user3,LocalDateTime.now());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        });
         thread1.start();
         thread2.start();
+        thread3.start();
 
 
 

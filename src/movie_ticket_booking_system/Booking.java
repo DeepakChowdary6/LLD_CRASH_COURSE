@@ -17,7 +17,7 @@ public class Booking {
             return instance;
       }
       //if we add synchronized here only one user at a time will use this app
-      public  Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  {
+      public  Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  throws Exception{
             if (areSeatsAvalable(show, seats)) {
                 markSeatsWithPending(show, seats);
                   try {
@@ -36,81 +36,51 @@ public class Booking {
 
 
       }
-     public void cancelTicket(Ticket ticket){
+     public void cancelTicket(Ticket ticket) {
             Show show=ticket.getShow();
-         KeyLockMap<Integer,Seat>showSeats=show.getSeats();
+         Map<Integer,Seat>showSeats=show.getSeats();
+       //  KeyLockMap<Integer,Seat>showSeats=show.getSeats();
            List<Integer>calcelledTickets=ticket.getSeats();
             for(Integer seat:calcelledTickets){
-                  showSeats.get(seat).setStatus(SeatStatus.AVAILABLE);
+                try {
+                    showSeats.get(seat).setStatus(SeatStatus.AVAILABLE);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
             }
      }
 
-     public boolean areSeatsAvalable(Show show,List<Integer>seats){
-         KeyLockMap<Integer,Seat>showSeats=show.getSeats();
+     public boolean areSeatsAvalable(Show show,List<Integer>seats) throws Exception{
+         Map<Integer,Seat>showSeats=show.getSeats();
+         //  KeyLockMap<Integer,Seat>showSeats=show.getSeats();
            for(Integer seat:seats){
-
-                 if(showSeats.get(seat).getStatus()!= SeatStatus.AVAILABLE){
+                   if(showSeats.get(seat).getStatus()!= SeatStatus.AVAILABLE){
                        return false;
-                 }
+                   }
            }
 
            return true;
      }
 
-      public void markSeatsWithPending(Show show,List<Integer>seats){
-          KeyLockMap<Integer,Seat>showSeats=show.getSeats();
+      public void markSeatsWithPending(Show show,List<Integer>seats)throws Exception{
+          Map<Integer,Seat>showSeats=show.getSeats();
+          //  KeyLockMap<Integer,Seat>showSeats=show.getSeats();
             for(Integer seat:seats){
-                SeatStatus status = showSeats.get(seat).getStatus();
-//                if (status == SeatStatus.PENDING || status == SeatStatus.BOOKED) {
-//
-//                    throw new IllegalStateException("Seat " + seat + " is already Occupied. Booking cannot proceed");
-//
-//                }
-                  showSeats.get(seat).setStatus(SeatStatus.PENDING);
+                    SeatStatus status = showSeats.get(seat).getStatus();
+                    showSeats.get(seat).setStatus(SeatStatus.PENDING);
+
             }
             return ;
       }
-    public void markSeatsWithBooked(Show show,List<Integer>seats){
-        KeyLockMap<Integer,Seat>showSeats=show.getSeats();
+    public void markSeatsWithBooked(Show show,List<Integer>seats)throws Exception{
+        Map<Integer,Seat>showSeats=show.getSeats();
+        //  KeyLockMap<Integer,Seat>showSeats=show.getSeats();
         for(Integer seat:seats){
-            showSeats.get(seat).setStatus(SeatStatus.BOOKED);
+                showSeats.get(seat).setStatus(SeatStatus.BOOKED);
         }
         return ;
     }
-      /* roll back the transactoin but here also there is a problem even if we rollback aslo original states might be changed by others
-      * public void markSeatsWithPending(Show show,List<Integer>seats){
-          Map<Integer, Seat> showSeats = show.getSeats();
-          Map<Integer, SeatStatus> originalStatuses = new HashMap<>(); // To store original statuses
-
-          try {
-              for (Integer seat : seats) {
-                  Seat seatObj = showSeats.get(seat);
-                  SeatStatus status = seatObj.getStatus();
-
-                  // Check if the seat is already occupied
-                  if (status == SeatStatus.PENDING || status == SeatStatus.BOOKED) {
-                      throw new IllegalStateException("Seat " + seat + " is already occupied. Booking cannot proceed.");
-                  }
-
-                  // Save the original status before making changes
-                  originalStatuses.put(seat, status);
-
-                  // Mark the seat as pending
-                  seatObj.setStatus(SeatStatus.PENDING);
-              }
-          } catch (Exception e) {
-              // Rollback changes if an exception occurs
-              for (Map.Entry<Integer, SeatStatus> entry : originalStatuses.entrySet()) {
-                  Integer seat = entry.getKey();
-                  SeatStatus originalStatus = entry.getValue();
-                  showSeats.get(seat).setStatus(originalStatus); // Revert to original status
-              }
-              // Rethrow the exception after rollback
-              throw e;
-          }
-            return ;
-      }
-      * */
 
 
 
