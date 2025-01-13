@@ -81,7 +81,7 @@ public class BookMyShow {
 
      Thread thread1=new Thread(()->{
          try {
-             Ticket ticket1= booking.bookTickets(show1,List.of(3),user1,LocalDateTime.now());
+             Ticket ticket1= booking.bookTickets(show1,List.of(3,5),user1,LocalDateTime.now());
          //    booking.cancelTicket(ticket1);
          }catch (Exception e){
              System.out.println(e.getMessage());
@@ -90,7 +90,7 @@ public class BookMyShow {
 
         Thread thread2=new Thread(()->{
             try {
-                Ticket ticket2=booking.bookTickets(show1,List.of(3),user2,LocalDateTime.now());
+                Ticket ticket2=booking.bookTickets(show1,List.of(3,5),user2,LocalDateTime.now());
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }

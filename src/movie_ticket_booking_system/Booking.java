@@ -17,7 +17,7 @@ public class Booking {
             return instance;
       }
       //if we add synchronized here only one user at a time will use this app
-      public  synchronized Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  {
+      public  Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  {
             if (areSeatsAvalable(show, seats)) {
                 markSeatsWithPending(show, seats);
                   try {
