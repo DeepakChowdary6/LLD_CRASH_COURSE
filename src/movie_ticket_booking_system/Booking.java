@@ -17,7 +17,7 @@ public class Booking {
             return instance;
       }
       //if we add synchronized here only one user at a time will use this app
-      public synchronized Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  {
+      public  synchronized Ticket  bookTickets(Show show, List<Integer> seats, User user, LocalDateTime bookingTime)  {
             if (areSeatsAvalable(show, seats)) {
                 markSeatsWithPending(show, seats);
                   try {
@@ -38,7 +38,7 @@ public class Booking {
       }
      public void cancelTicket(Ticket ticket){
             Show show=ticket.getShow();
-           Map<Integer,Seat>showSeats=show.getSeats();
+         KeyLockMap<Integer,Seat>showSeats=show.getSeats();
            List<Integer>calcelledTickets=ticket.getSeats();
             for(Integer seat:calcelledTickets){
                   showSeats.get(seat).setStatus(SeatStatus.AVAILABLE);
@@ -46,7 +46,7 @@ public class Booking {
      }
 
      public boolean areSeatsAvalable(Show show,List<Integer>seats){
-           Map<Integer,Seat>showSeats=show.getSeats();
+         KeyLockMap<Integer,Seat>showSeats=show.getSeats();
            for(Integer seat:seats){
 
                  if(showSeats.get(seat).getStatus()!= SeatStatus.AVAILABLE){
@@ -58,20 +58,20 @@ public class Booking {
      }
 
       public void markSeatsWithPending(Show show,List<Integer>seats){
-            Map<Integer,Seat>showSeats=show.getSeats();
+          KeyLockMap<Integer,Seat>showSeats=show.getSeats();
             for(Integer seat:seats){
                 SeatStatus status = showSeats.get(seat).getStatus();
-                if (status == SeatStatus.PENDING || status == SeatStatus.BOOKED) {
-
-                    throw new IllegalStateException("Seat " + seat + " is already Occupied. Booking cannot proceed");
-
-                }
+//                if (status == SeatStatus.PENDING || status == SeatStatus.BOOKED) {
+//
+//                    throw new IllegalStateException("Seat " + seat + " is already Occupied. Booking cannot proceed");
+//
+//                }
                   showSeats.get(seat).setStatus(SeatStatus.PENDING);
             }
             return ;
       }
     public void markSeatsWithBooked(Show show,List<Integer>seats){
-        Map<Integer,Seat>showSeats=show.getSeats();
+        KeyLockMap<Integer,Seat>showSeats=show.getSeats();
         for(Integer seat:seats){
             showSeats.get(seat).setStatus(SeatStatus.BOOKED);
         }

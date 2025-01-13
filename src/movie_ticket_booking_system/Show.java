@@ -16,7 +16,7 @@ public class Show {
     private final LocalDateTime endTime;
 
     private final Integer showid;
-    private Map<Integer, Seat> seats;
+    private KeyLockMap<Integer, Seat> seats;
     public Show(Movie movie, Theatre theatre, LocalDateTime startTime, LocalDateTime endTime) {
         this.movie = movie;
         this.theatre = theatre;
@@ -25,7 +25,7 @@ public class Show {
         this.showid=idcounter++;
 
         Integer capacity=theatre.getCapacity();
-        seats=new ConcurrentHashMap<>();
+        this.seats=new KeyLockMap<Integer, Seat>();
         for(int i=1;i<=capacity;i++){
             seats.put(i,new Seat(i, SeatStatus.AVAILABLE));
         }
@@ -41,7 +41,7 @@ public class Show {
         return theatre;
     }
 
-    public Map<Integer, Seat> getSeats() {
+    public KeyLockMap<Integer, Seat> getSeats() {
         return seats;
     }
 }
