@@ -1,3 +1,5 @@
+package custom_hash_Map;
+
 public class CustomHashMap<K, V> {
 
     // Entry class representing a single key-value pair
@@ -93,7 +95,7 @@ public class CustomHashMap<K, V> {
         return size;
     }
 
-    // Test the CustomHashMap
+    // Test the custom_hash_Map.CustomHashMap
     public static void main(String[] args) {
         CustomHashMap<String, String> map = new CustomHashMap<>();
         map.put("key1", "value1");

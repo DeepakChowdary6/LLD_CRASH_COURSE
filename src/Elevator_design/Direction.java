@@ -1,4 +1,4 @@
-package design_elevator;
+package Elevator_design;
 
 public enum Direction {
     UP,DOWN

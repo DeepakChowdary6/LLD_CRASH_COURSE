@@ -1,6 +1,4 @@
-package design_elevator;
-
-import java.util.Scanner;
+package Elevator_design;
 
 public class Main {
     public static void main(String[] args) {

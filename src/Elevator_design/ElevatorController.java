@@ -1,4 +1,4 @@
-package design_elevator;
+package Elevator_design;
 
 import java.util.ArrayList;
 import java.util.List;
