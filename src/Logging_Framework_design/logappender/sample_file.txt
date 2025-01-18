@@ -1,0 +1,4 @@
+[ ERROR ] 1737200360852--this is a error message
+[ FATAL ] 1737200360854--this is a fatal message
+[ ERROR ] 1737200425707--this is a error message
+[ FATAL ] 1737200425709--this is a fatal message
