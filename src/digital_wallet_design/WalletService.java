@@ -2,6 +2,7 @@ package digital_wallet_design;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class WalletService {
@@ -18,7 +19,7 @@ public class WalletService {
         if(!validate(fromAcc,toAcc,amount)){
             return;
         }
-        Transaction transaction=new Transaction(fromAcc,toAcc,amount,new Date());
+        Transaction transaction=new Transaction(fromAcc,toAcc,amount, LocalDateTime.now());
         Account fromAccount=wallet.getAccountMap().get(fromAcc);
         Account toAccount=wallet.getAccountMap().get(toAcc);
         if(fromAccount.getBalance().compareTo(amount)<0){

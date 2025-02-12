@@ -2,6 +2,7 @@ package digital_wallet_design;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,9 +11,9 @@ public class Transaction {
     private Integer fromAcc;
     private  Integer toAcc;
     private BigDecimal amount;
-    private Date date;
+    private LocalDateTime date;
 
-    public Transaction(Integer fromAcc, Integer toAcc, BigDecimal amount, Date date) {
+    public Transaction(Integer fromAcc, Integer toAcc, BigDecimal amount, LocalDateTime date) {
         this.transactionId = generateTransactionId();
         this.fromAcc = fromAcc;
         this.toAcc = toAcc;
@@ -61,7 +62,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
