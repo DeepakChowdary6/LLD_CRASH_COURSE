@@ -15,15 +15,17 @@ public class CustomHashMap<K, V> {
         }
     }
 
-    private static final int INITIAL_CAPACITY = 16; // Default bucket size
+    private static final int INITIAL_CAPACITY = 2; // Default bucket size
+    private static final float LOAD_FACTOR=0.75f;
     private Entry<K, V>[] buckets; // Array of buckets
     private int size; // Number of key-value pairs
-
+    private float threshold;
     // Constructor
     @SuppressWarnings("unchecked")
     public CustomHashMap() {
         buckets = new Entry[INITIAL_CAPACITY];
         size = 0;
+        threshold=(int)INITIAL_CAPACITY*LOAD_FACTOR;
     }
 
     // Hash function to compute the index
@@ -31,8 +33,28 @@ public class CustomHashMap<K, V> {
         return key == null ? 0 : Math.abs(key.hashCode() % buckets.length);
     }
 
+    public void resize(){
+       int newSize=buckets.length*2;
+       Entry<K,V>[] newBuckets=new Entry[newSize];
+        for(Entry<K,V> bucket:buckets){
+            while (bucket!=null){
+                Entry<K,V>next=bucket.next;
+                int newIndex=hash(bucket.key);
+                bucket.next=newBuckets[newIndex];
+                newBuckets[newIndex]=bucket;
+                bucket=next;
+            }
+        }
+       buckets=newBuckets;
+        threshold=(int)newSize*LOAD_FACTOR;
+    }
+
     // Add or update a key-value pair
     public void put(K key, V value) {
+        if(size>=threshold){
+            resize();
+        }
+
         int bucketIndex = hash(key);
         Entry<K, V> current = buckets[bucketIndex];
 
@@ -101,7 +123,7 @@ public class CustomHashMap<K, V> {
         map.put("key1", "value1");
         map.put("key2", "value2");
         map.put("key3", "value3");
-
+        System.out.println("Size: " + map.size());
         System.out.println("Get key1: " + map.get("key1")); // Output: value1
         System.out.println("Get key2: " + map.get("key2")); // Output: value2
 
