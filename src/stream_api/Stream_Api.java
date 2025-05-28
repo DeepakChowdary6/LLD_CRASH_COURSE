@@ -1,3 +1,5 @@
+package stream_api;
+
 import java.util.*;
 import java.util.stream.*;
 
