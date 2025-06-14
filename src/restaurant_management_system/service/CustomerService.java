@@ -1,10 +1,8 @@
 package restaurant_management_system.service;
 
-import restaurant_management_system.dto.MenuItem;
-import restaurant_management_system.dto.Order;
-import restaurant_management_system.dto.OrderItem;
-import restaurant_management_system.repository.MenuRepository;
-import restaurant_management_system.repository.OrderRepository;
+import restaurant_management_system.dto.*;
+
+import restaurant_management_system.repository.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +35,6 @@ public class CustomerService {
     }
     //      int type= sc.nextInt();
     public void viewMenuItems(int type){
-        System.out.println("Enter type \n 1.veg \n2.non-veg \n 3.any");
 
 
         List<MenuItem>itemList=MenuRepository.getMenuItemHashMap().entrySet().
@@ -58,6 +55,18 @@ public class CustomerService {
         }
         System.out.println("Bill for the order "+orderId+" is "+cost);
     }
+    public void viewMenuItemsByTypeAndCategory(int type, Category category){
 
+        System.out.println("Enter the category ");
+        List<MenuItem>itemList=MenuRepository.getMenuItemHashMap().entrySet().
+                stream().map(entry->entry.getValue()).filter(menuItem -> {
+                    if(type==1)return menuItem.isVeg()&&menuItem.getCategory().equals(category);
+                    if(type==2)return !menuItem.isVeg()&&menuItem.getCategory().equals(category);
+                    return menuItem.getCategory().equals(category);
+                })
+                .collect(Collectors.toList());
+        itemList.forEach(MenuItem->System.out.println("menu item id: "+MenuItem.getId()+" Name "+MenuItem.getName()+" Price: "+MenuItem.getPrice()));
+
+    }
 
 }

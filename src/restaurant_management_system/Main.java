@@ -16,7 +16,6 @@ public class Main {
         CustomerService customerService=new CustomerService();
         KitchenService kitchenService=new KitchenService();
         InMemoryService inMemoryService=new InMemoryService();
-
         while(true){
             System.out.println("\n--- Restaurant Management System ---");
             System.out.println("Select role:");
@@ -158,11 +157,12 @@ public class Main {
         while (true) {
             System.out.println("<------------Welcome to Customer menu-------------->");
 
-            System.out.println("1. View Menu");
-            System.out.println("2. Place Order");
-            System.out.println("3. add items to existing order");
-            System.out.println("4. Calculate bill");
-            System.out.println("5. Exit");
+            System.out.println("1. View Menu by veg/non-veg");
+            System.out.println("2. View Menu by itemtype and category");
+            System.out.println("3. Place Order");
+            System.out.println("4. add items to existing order");
+            System.out.println("5. Calculate bill");
+            System.out.println("6. Exit");
             System.out.print("Enter choice: ");
             int choice=sc.nextInt();
             switch (choice){
@@ -170,11 +170,18 @@ public class Main {
                     System.out.println("Enter type \n1.veg \n2.non-veg \n3.any");
                     int type= sc.nextInt();
                 customerService.viewMenuItems(type);}
-                  case 2->{
+                case 2->{
+                    System.out.println("Enter the type and category");
+                    System.out.println("Enter type \n1.veg \n2.non-veg \n3.any");
+                    int itemType= sc.nextInt();
+                    System.out.println("Enter the category \n STARTER \n MAIN \n COURSE \n DESSERT");
+                    Category category=Category.valueOf(Category.class,sc.next());
+                    customerService.viewMenuItemsByTypeAndCategory(itemType,category);}
+                case 3->{
                     System.out.println("Enter the table no ");
                     int tableNo=sc.nextInt();
                     customerService.placeOrder(tableNo);}
-                case 3-> {
+                case 4-> {
                     System.out.println("enter the order id to add items");
                     int orderId= sc.nextInt();
                     System.out.println("enter the menu Item id");
@@ -183,11 +190,11 @@ public class Main {
                     int quantity= sc.nextInt();
                     customerService.addItemstoExistingorder(orderId,menuItemid,quantity);
                 }
-                case 4->{
+                case 5->{
                     System.out.println("enter the order id to calculate the bill");
                     int orderId= sc.nextInt();
             customerService.CalculateBill(orderId);}
-                case 5->{
+                case 6->{
                     System.out.println("Exiting Customer menu. Good bye");
                     return;
                 }
