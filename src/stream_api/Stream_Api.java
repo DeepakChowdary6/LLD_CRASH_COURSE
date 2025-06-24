@@ -8,12 +8,12 @@ public class Stream_Api {
     public static void main(String[] args) {
         List<Integer>list=new ArrayList<>(Arrays.asList(1,3,4,5,2));
         List<List<Integer>> nestedNumbers = Arrays.asList(Arrays.asList(1, 2), Arrays.asList(3, 4, 5));
-        List<String> names = Arrays.asList("Alice dude", "Venkat Bob", "Ramesh Charlie");
+     //   List<String> names = Arrays.asList("Alice dude", "Venkat Bob", "Ramesh Charlie");
       //  IntSummaryStatistics statistics=list.stream().mapToInt(Integer::intValue).summaryStatistics();
         //List<Integer> ans=list.stream().skip(2).limit(2).collect(Collectors.toList()); // limit and skip
       //  List<String>ans=names.stream().peek(System.out::println).collect(Collectors.toList());// performs action without changing the streaam
 
-       List<String>ans=names.stream().flatMap(s->Arrays.stream(s.split(" "))).collect(Collectors.toList());// flatmap  streams to single stream
+     //  List<String>ans=names.stream().flatMap(s->Arrays.stream(s.split(" "))).collect(Collectors.toList());// flatmap  streams to single stream
       //  List<Integer>ans=nestedNumbers.stream().flatMap(List::stream).collect(Collectors.toList());// flat map the stream ,
         //  flatMap takes input and return type should be stream as output , further it combines all the streams to single stream
       //  String ans=names.stream().findFirst().orElse(""); // find the first element in the stream
@@ -34,8 +34,9 @@ public class Stream_Api {
         //List<Integer>ans=list.stream().map(n->n*n).collect(Collectors.toList()); //find square
         // int ans=list.stream().filter(n->n%2==0).reduce(0,Integer::sum); // sum the even
         //double ans=list.stream().mapToDouble(Integer::doubleValue).average().orElse(0.0); //find average
-
-        System.out.println(ans);
+String[] names={"venkat","ramesh","charlie"};
+       String ans1=Arrays.stream(names).map(name->name.toUpperCase()).collect(Collectors.joining(","));
+        System.out.println(ans1);
 
     }
 
