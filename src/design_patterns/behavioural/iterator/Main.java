@@ -20,31 +20,35 @@ class ConcreteCollection implements Collection {
         this.items = items;
     }
     public Iterator createIterator() {
-        return new ConcreteIterator(this);
+        return new ConcreteIterator<>(items);
     }
     public String[] getItems() {
         return items;
     }
 }
 
-class ConcreteIterator implements Iterator {
-    private ConcreteCollection collection;
+class ConcreteIterator<T> implements Iterator {
+    private T[] items;
+
     private int index;
-    public ConcreteIterator(ConcreteCollection collection) {
-        this.collection = collection;
+    public ConcreteIterator(T[] items) {
+        this.items = items;
+
     }
+
     public boolean hasNext() {
-        return index < collection.getItems().length;
+        return index < items.length;
+
     }
-    public Object next() {
-        return collection.getItems()[index++];
-    }
-}
+    public T next() {
+        return items[index++];
+
+}}
 public class Main {
 
     public static void main(String[] args) {
         String[] items = {"Item 1", "Item 2", "Item 3"};
-        ConcreteCollection collection = new ConcreteCollection(items);
+        Collection collection = new ConcreteCollection(items);
         Iterator iterator = collection.createIterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
