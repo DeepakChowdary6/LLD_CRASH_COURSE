@@ -20,13 +20,26 @@ class ConcreteCollection implements Collection {
         this.items = items;
     }
     public Iterator createIterator() {
-        return new ConcreteIterator<>(items);
+        //return new ConcreteIterator(items); without generics
+        return new ConcreteIterator<>(items); //can infer data type without <String>(items)
     }
     public String[] getItems() {
         return items;
     }
 }
-
+//class ConcreteIterator implements Iterator { // without generics
+//    private String[] items;
+//    private int index;
+//    public ConcreteIterator(String[] items) {
+//        this.items = items;
+//    }
+//    public boolean hasNext() {
+//        return index < items.length;
+//    }
+//    public String next() {
+//        return items[index++];
+//    }
+//}
 class ConcreteIterator<T> implements Iterator {
     private T[] items;
 
