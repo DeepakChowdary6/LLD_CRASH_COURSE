@@ -64,7 +64,7 @@ class User{//products
     }
 }
 
-public class Main {
+public class Builder {
     public static void main(String[] args) {
        User user=new User.UserBuilder("Suresh", "b3kO0@example.com").setPhoneNumber("1234567890").setAddress("Chennai").build();
         System.out.println(user);
