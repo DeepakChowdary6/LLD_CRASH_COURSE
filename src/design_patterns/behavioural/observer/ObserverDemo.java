@@ -62,7 +62,7 @@ class WeatherStation implements Subject {
     }
 
 }
-public class Main {
+public class ObserverDemo {
 
     public static void main(String[] args) {
         WeatherStation weatherStation = new WeatherStation();

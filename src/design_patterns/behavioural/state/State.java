@@ -65,7 +65,7 @@ class TrafficLight {
 }
 
 // Main class
-public class Main {
+public class  State {
     public static void main(String[] args) {
         TrafficLight trafficLight = new TrafficLight();
 

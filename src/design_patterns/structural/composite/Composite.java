@@ -60,7 +60,7 @@ class Directory implements FileSystemComponent {
         children.remove(component);
     }
 }
-public class Main {
+public class Composite {
     // components
 
 

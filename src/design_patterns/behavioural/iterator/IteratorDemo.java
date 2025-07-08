@@ -57,7 +57,7 @@ class ConcreteIterator<T> implements Iterator {
         return items[index++];
 
 }}
-public class Main {
+public class IteratorDemo {
 
     public static void main(String[] args) {
         String[] items = {"Item 1", "Item 2", "Item 3"};

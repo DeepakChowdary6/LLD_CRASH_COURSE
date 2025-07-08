@@ -84,7 +84,7 @@ class MushRoomDecorator extends PizzaDecorator {
     }
 }
 
-public class Main {
+public class Decorator {
 
     public static void main(String[] args) {
         Pizza pizza = new PlainPizza();

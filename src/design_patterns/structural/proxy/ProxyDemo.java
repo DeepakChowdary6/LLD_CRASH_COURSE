@@ -35,7 +35,7 @@ class ProxyImage implements image{
     //This code demonstrates how the Proxy Pattern efficiently manages the loading and displaying of images by introducing a proxy that controls access to the real image object,
     // providing additional functionality such as lazy loading.
 }
-public class Main {
+public class ProxyDemo{
 
     public static void main(String[] args) {
 

@@ -129,7 +129,7 @@ class AdminUser extends User {
     }
 }
 
-public class Main {
+public class Mediator {
     public static void main(String[] args) {
         // Create the mediator
         ChatMediator chatRoom = new ChatRoom();

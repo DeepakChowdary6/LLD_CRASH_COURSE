@@ -28,7 +28,7 @@ class PrinterAdapter implements Printer{
         }
 }
 
-public class Main {
+public class Adapter {
 
     public static void clientCode(Printer printer){
         printer.print();
