@@ -33,7 +33,7 @@ class FactoryB implements Factory{
     }
 }
 
-public class Main {
+public class FactoryDemo {
 
     public static void main(String[] args) {
 
