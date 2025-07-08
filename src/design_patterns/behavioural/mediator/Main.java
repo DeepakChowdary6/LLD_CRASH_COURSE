@@ -17,22 +17,30 @@ import java.util.*;
 interface ChatMediator {
     void sendMessage(String message, User user);
     void addUser(User user);
+    void registerUser(User user);
 }
 
 // Concrete Mediator
 class ChatRoom implements ChatMediator {
     private List<User> users;
-    
+
     public ChatRoom() {
         this.users = new ArrayList<>();
     }
-    
+
     @Override
     public void addUser(User user) {
         this.users.add(user);
         System.out.println(user.getName() + " joined the chat room");
     }
-    
+
+    @Override
+    public void registerUser(User user) {
+        user.setMediator(this);
+        this.users.add(user);
+        System.out.println(user.getName() + " joined the chat room");
+    }
+
     @Override
     public void sendMessage(String message, User sender) {
         // The mediator distributes the message to all users except the sender
@@ -48,15 +56,20 @@ class ChatRoom implements ChatMediator {
 abstract class User {
     protected ChatMediator mediator;
     protected String name;
-    
-    public User(ChatMediator mediator, String name) {
-        this.mediator = mediator;
+
+    // Constructor without mediator
+    public User(String name) {
         this.name = name;
     }
-    
+
+    // Method to set mediator after creation
+    public void setMediator(ChatMediator mediator) {
+        this.mediator = mediator;
+    }
+
     public abstract void send(String message);
     public abstract void receive(String message, String senderName);
-    
+
     public String getName() {
         return name;
     }
@@ -64,16 +77,20 @@ abstract class User {
 
 // Concrete Colleague 1
 class ChatUser extends User {
-    public ChatUser(ChatMediator mediator, String name) {
-        super(mediator, name);
+    public ChatUser(String name) {
+        super(name);
     }
-    
+
     @Override
     public void send(String message) {
         System.out.println(this.name + " sends: " + message);
-        mediator.sendMessage(message, this);
+        if (mediator != null) {
+            mediator.sendMessage(message, this);
+        } else {
+            System.out.println("Error: User not registered with any chat room");
+        }
     }
-    
+
     @Override
     public void receive(String message, String senderName) {
         System.out.println(this.name + " received from " + senderName + ": " + message);
@@ -82,25 +99,33 @@ class ChatUser extends User {
 
 // Concrete Colleague 2
 class AdminUser extends User {
-    public AdminUser(ChatMediator mediator, String name) {
-        super(mediator, name);
+    public AdminUser(String name) {
+        super(name);
     }
-    
+
     @Override
     public void send(String message) {
         System.out.println("[ADMIN] " + this.name + " sends: " + message);
-        mediator.sendMessage("[ADMIN MESSAGE] " + message, this);
+        if (mediator != null) {
+            mediator.sendMessage("[ADMIN MESSAGE] " + message, this);
+        } else {
+            System.out.println("Error: Admin not registered with any chat room");
+        }
     }
-    
+
     @Override
     public void receive(String message, String senderName) {
         System.out.println("[ADMIN] " + this.name + " received from " + senderName + ": " + message);
     }
-    
+
     // Admin-specific method
     public void sendAlert(String alert) {
         System.out.println("[SYSTEM ALERT] from " + this.name + ": " + alert);
-        mediator.sendMessage("[SYSTEM ALERT] " + alert, this);
+        if (mediator != null) {
+            mediator.sendMessage("[SYSTEM ALERT] " + alert, this);
+        } else {
+            System.out.println("Error: Admin not registered with any chat room");
+        }
     }
 }
 
@@ -108,28 +133,38 @@ public class Main {
     public static void main(String[] args) {
         // Create the mediator
         ChatMediator chatRoom = new ChatRoom();
-        
-        // Create users
-        User user1 = new ChatUser(chatRoom, "Alice");
-        User user2 = new ChatUser(chatRoom, "Bob");
-        User user3 = new ChatUser(chatRoom, "Charlie");
-        User admin = new AdminUser(chatRoom, "Admin");
-        
-        // Add users to the chat room
-        chatRoom.addUser(user1);
-        chatRoom.addUser(user2);
-        chatRoom.addUser(user3);
-        chatRoom.addUser(admin);
-        
+
+        // Create users without mediator
+        User user1 = new ChatUser("Alice");
+        User user2 = new ChatUser("Bob");
+        User user3 = new ChatUser("Charlie");
+        User admin = new AdminUser("Admin");
+
+        // Register users with the chat room
+        chatRoom.registerUser(user1);
+        chatRoom.registerUser(user2);
+        chatRoom.registerUser(user3);
+        chatRoom.registerUser(admin);
+
         // Users send messages
         user1.send("Hello everyone!");
         user2.send("Hi Alice, how are you?");
-        
+
         // Admin sends a message and an alert
         admin.send("Welcome to the chat room");
         ((AdminUser) admin).sendAlert("The chat will be down for maintenance at 10 PM");
-        
+
         // Another user responds
         user3.send("Thanks for the heads up, Admin");
+
+        // Demonstrate creating a new chat room and moving a user
+        ChatMediator privateRoom = new ChatRoom();
+        User user4 = new ChatUser("Dave");
+        privateRoom.registerUser(user4);
+        privateRoom.registerUser(user1); // Alice joins the private room
+
+        // Messages in private room
+        user4.send("Welcome to the private room, Alice!");
+        user1.send("Thanks for inviting me, Dave!");
     }
 }
