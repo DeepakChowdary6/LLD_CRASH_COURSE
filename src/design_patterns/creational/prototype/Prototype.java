@@ -56,7 +56,7 @@ class BlackSheep implements Sheep {
     }
 }
 
-public class Main {
+public class Prototype {
 
 /**
  * The Prototype Pattern is a creational design pattern that is used to create a new object by copying an existing object.
