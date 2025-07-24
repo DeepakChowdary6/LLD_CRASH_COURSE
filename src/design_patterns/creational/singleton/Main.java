@@ -6,6 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
         AtomicReference<Singleton> singleton1 = new AtomicReference<>(), singleton2 =new AtomicReference<>();
+        // AtomicReference is a thread-safe reference that can be used to wrap a Singleton class's instance field.
+        // It provides a way to atomically set the value of the reference if the current value is equal to a given expected value.
+        //
 
       Thread t1= new Thread(()->{
             singleton1.set(Singleton.getInstance());
