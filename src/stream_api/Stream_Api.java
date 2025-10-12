@@ -29,6 +29,7 @@ public class Stream_Api {
       //  List<String>ans=names.stream().map(n->n.toUpperCase()).collect(Collectors.toList()); // to upper case
         // int ans=list.stream().mapToInt(Integer::intValue).max().orElse(-1);//max value with primitive data type
         //mapToInt() is required when you need to perform operations that specifically work on primitive int values, such as sum, average, max, min, etc.
+        //mapToInt() returns IntStream ,where as map return Stream
        // Optional<Integer> ans=list.stream().max(Integer::compare);      //find maximum , optional is used as list can be null
         // List<Integer>ans=list.stream().filter(n->n%2==0).collect(Collectors.toList());  //filter even numbers
         //List<Integer>ans=list.stream().map(n->n*n).collect(Collectors.toList()); //find square
