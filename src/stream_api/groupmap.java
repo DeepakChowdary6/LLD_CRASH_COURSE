@@ -7,7 +7,7 @@ public class groupmap {
     public static void main(String[] args) {
         List<String>list=Arrays.asList("Alice","Bob","Carie","Denver","Erin","Bob");
         //using group----------------------------------------------------------------------------------
-        //groupingBy   by default it gives (key,List<Values>)                      //function indentity for grouping criteria
+        //groupingBy   by default it gives (key,List<Values>)                      //function identity for grouping criteria
 
         Map<Character,List<String>>mp=list.stream().collect(Collectors.groupingBy(name->name.charAt(0)));
      System.out.println(mp); // without set
