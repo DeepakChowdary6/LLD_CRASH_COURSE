@@ -11,7 +11,22 @@ public class groupmap {
 
         Map<Character,List<String>>mp=list.stream().collect(Collectors.groupingBy(name->name.charAt(0)));
      System.out.println(mp); // without set
-
+    String str="aathhtbttnchwicill";
+   
+String reversed = str.chars()
+        .mapToObj(c -> String.valueOf((char) c))
+        .reduce("", (acc, ch) -> ch + acc);
+      //Collectors.joining() combines stream elements into a single String
+        //
+    System.out.println("reverse of string str " + reversed);
+        //frequency of characters in a string using toMap and groupingBy 
+  //.toMap(keyMapper,valueMapper,mergeFunction,mapSupplier)
+        //  Map<Character,Long>mp=str.chars().mapToObj(c->(char)c).collect(Collectors.toMap(c->c,c->1L,(a,b)->a+b));
+    //.groupingBy(classifier,mapFactory,downstreamCollector)
+        //str.chars().mapToObj(c->(char)c).collect(Collectors.groupingBy(c->c,Collectors.counting()));
+        //.counting() , .joining() , .toList() ,  .mapping() . toSet() etc.. are called downstramCollector
+        
+    
         Map<Character,Set<String>>st=list.stream().collect(Collectors.groupingBy(name->name.charAt(0),Collectors.toSet()));
         System.out.println(st);// with set
         List<Person> people = List.of(
