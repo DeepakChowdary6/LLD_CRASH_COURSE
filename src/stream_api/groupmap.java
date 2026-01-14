@@ -16,7 +16,7 @@ public class groupmap {
 String reversed = str.chars()
         .mapToObj(c -> String.valueOf((char) c))
         .reduce("", (acc, ch) -> ch + acc);
-      //Collectors.joining() combines stream elements into a single String
+      //Collectors.joining() combines stream<String> elements into a single String
         //
     System.out.println("reverse of string str " + reversed);
         //frequency of characters in a string using toMap and groupingBy 
