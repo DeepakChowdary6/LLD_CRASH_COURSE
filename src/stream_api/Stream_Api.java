@@ -25,6 +25,8 @@ public class Stream_Api {
 
        // long ans=list.stream().mapToInt(Integer::intValue).count(); //.count() returns long always
 
+// non null list list.stream().filter(x->Objects.nonNull(x)).toList();
+// merge 2 streams Stream.concat(list1.stream(),list2.stream()).distinct().toList();
         //List<Integer>ans=list.stream().sorted().collect(Collectors.toList());  // sort the list
       //  List<String>ans=names.stream().map(n->n.toUpperCase()).collect(Collectors.toList()); // to upper case
         // int ans=list.stream().mapToInt(Integer::intValue).max().orElse(-1);//max value with primitive data type
